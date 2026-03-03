@@ -130,9 +130,13 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed. Check the logs above for errors.'
-            mail to: 'shikharmutta67@gmail.com',
-                 subject: "FAILURE: Scientific Calculator Pipeline - Build #${env.BUILD_NUMBER}",
-                 body: "The pipeline has failed.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\n\nFailed Stage: ${env.FAILURE_STAGE}\nReason: ${env.FAILURE_REASON}\n\nConsole Output: ${env.BUILD_URL}console"
+            script {
+                def stage = env.FAILURE_STAGE ?: 'SCM Checkout (pre-pipeline)'
+                def reason = env.FAILURE_REASON ?: 'Failed to fetch code from GitHub. The repository may be unreachable or GitHub may be down.'
+                mail to: 'shikharmutta67@gmail.com',
+                     subject: "FAILURE: Scientific Calculator Pipeline - Build #${env.BUILD_NUMBER}",
+                     body: "The pipeline has failed.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\n\nFailed Stage: ${stage}\nReason: ${reason}\n\nConsole Output: ${env.BUILD_URL}console"
+            }
         }
     }
 }
