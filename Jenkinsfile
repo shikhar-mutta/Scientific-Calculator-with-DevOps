@@ -66,9 +66,15 @@ pipeline {
     post {
         success {
             echo 'Pipeline completed successfully! Calculator is deployed.'
+            mail to: 'shikharmutta67@gmail.com',
+                 subject: "SUCCESS: Scientific Calculator Pipeline - Build #${env.BUILD_NUMBER}",
+                 body: "The pipeline completed successfully.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\nURL: ${env.BUILD_URL}"
         }
         failure {
             echo 'Pipeline failed. Check the logs above for errors.'
+            mail to: 'shikharmutta67@gmail.com',
+                 subject: "FAILURE: Scientific Calculator Pipeline - Build #${env.BUILD_NUMBER}",
+                 body: "The pipeline has failed. Please check the logs.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\nURL: ${env.BUILD_URL}"
         }
     }
 }
