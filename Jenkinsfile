@@ -9,7 +9,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/shikhar-mutta/scientific-calculator.git'
+                git 'https://github.com/shikhar-mutta/Scientific-Calculator-with-DevOps.git'
             }
         }
 
