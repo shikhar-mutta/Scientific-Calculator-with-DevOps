@@ -31,7 +31,7 @@ pipeline {
                     try {
                         sh 'mvn clean compile'
                     } catch (Exception e) {
-                        currentBuild.description = 'Failed Stage: Build\nReason: Maven compilation failed. Check for syntax errors in Java code.'
+                        currentBuild.description = 'Failed Stage: Build\nReason: ' + e.getMessage()
                         throw e
                     }
                 }
@@ -44,7 +44,7 @@ pipeline {
                     try {
                         sh 'mvn test'
                     } catch (Exception e) {
-                        currentBuild.description = 'Failed Stage: Test\nReason: One or more JUnit tests failed. Check test results for details.'
+                        currentBuild.description = 'Failed Stage: Test\nReason: ' + e.getMessage()
                         throw e
                     }
                 }
@@ -57,7 +57,7 @@ pipeline {
                     try {
                         sh 'mvn package'
                     } catch (Exception e) {
-                        currentBuild.description = 'Failed Stage: Package\nReason: Failed to package the JAR file.'
+                        currentBuild.description = 'Failed Stage: Package\nReason: ' + e.getMessage()
                         throw e
                     }
                 }
@@ -70,7 +70,7 @@ pipeline {
                     try {
                         sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                     } catch (Exception e) {
-                        currentBuild.description = 'Failed Stage: Docker Build\nReason: Docker image build failed. Check Dockerfile for errors.'
+                        currentBuild.description = 'Failed Stage: Docker Build\nReason: ' + e.getMessage()
                         throw e
                     }
                 }
@@ -91,7 +91,7 @@ pipeline {
                             sh 'docker logout'
                         }
                     } catch (Exception e) {
-                        currentBuild.description = 'Failed Stage: Docker Push\nReason: Failed to push image to Docker Hub. Check credentials and permissions.'
+                        currentBuild.description = 'Failed Stage: Docker Push\nReason: ' + e.getMessage()
                         throw e
                     }
                 }
@@ -104,7 +104,7 @@ pipeline {
                     try {
                         sh 'ansible-playbook -i inventory.ini deploy.yml'
                     } catch (Exception e) {
-                        currentBuild.description = 'Failed Stage: Deploy\nReason: Ansible deployment failed. Check deploy.yml and container status.'
+                        currentBuild.description = 'Failed Stage: Deploy\nReason: ' + e.getMessage()
                         throw e
                     }
                 }
