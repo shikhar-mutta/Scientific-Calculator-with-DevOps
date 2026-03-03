@@ -1,5 +1,5 @@
 # ── Stage 1: Build with Maven ──
-FROM maven:3.8.7-openjdk-18-slim AS builder
+FROM maven:3.9-eclipse-temurin-17 AS builder
 
 WORKDIR /build
 COPY pom.xml .
@@ -9,7 +9,7 @@ COPY src ./src
 RUN mvn clean package -q
 
 # ── Stage 2: Runtime ──
-FROM openjdk:18-jdk-slim
+FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 

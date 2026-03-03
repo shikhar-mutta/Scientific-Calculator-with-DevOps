@@ -1,7 +1,6 @@
 ---
 - name: Deploy Scientific Calculator Container
   hosts: local
-  become: yes
 
   vars:
     docker_image: shikhar68/scientific-calculator
@@ -10,29 +9,21 @@
 
   tasks:
     - name: Pull the latest Docker image
-      docker_image:
-        name: "{{ docker_image }}"
-        tag: "{{ docker_tag }}"
-        source: pull
-        force_source: yes
+      command: "docker pull {{ docker_image }}:{{ docker_tag }}"
 
     - name: Stop and remove existing container (if any)
-      docker_container:
-        name: "{{ container_name }}"
-        state: absent
+      command: "docker rm -f {{ container_name }}"
+      ignore_errors: yes
 
     - name: Run the Scientific Calculator container
-      docker_container:
-        name: "{{ container_name }}"
-        image: "{{ docker_image }}:{{ docker_tag }}"
-        state: started
-        interactive: yes
-        tty: yes
-        detach: yes
-        restart_policy: always
+      command: >
+        docker run -dit
+        --name {{ container_name }}
+        --restart always
+        {{ docker_image }}:{{ docker_tag }}
 
     - name: Verify container is running
-      command: docker ps --filter "name={{ container_name }}" --format "{{ '{{' }}.Status{{ '}}' }}"
+      command: docker ps --filter "name={{ container_name }}" --format "{{'{{'}}.Status{{'}}'}}"
       register: container_status
 
     - name: Print container status
