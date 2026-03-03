@@ -72,21 +72,9 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed. Check the logs above for errors.'
-            script {
-                def failureLog = currentBuild.rawBuild.getLog(30).join('\n')
-                mail to: 'shikharmutta67@gmail.com',
-                     subject: "FAILURE: Scientific Calculator Pipeline - Build #${env.BUILD_NUMBER}",
-                     body: """The pipeline has failed.
-
-Job: ${env.JOB_NAME}
-Build: #${env.BUILD_NUMBER}
-URL: ${env.BUILD_URL}
-Console Output: ${env.BUILD_URL}console
-
---- Failure Reason (Last 30 lines of log) ---
-${failureLog}
-"""
-            }
+            mail to: 'shikharmutta67@gmail.com',
+                 subject: "FAILURE: Scientific Calculator Pipeline - Build #${env.BUILD_NUMBER}",
+                 body: "The pipeline has failed.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\nStatus: ${currentBuild.currentResult}\n\nCheck the full console output for failure reason:\n${env.BUILD_URL}console"
         }
     }
 }
