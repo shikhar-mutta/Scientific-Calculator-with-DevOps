@@ -8,8 +8,6 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'shikhar68/scientific-calculator'
         DOCKER_TAG   = 'latest'
-        FAILURE_STAGE = ''
-        FAILURE_REASON = ''
     }
 
     stages {
@@ -20,8 +18,7 @@ pipeline {
                     try {
                         git branch: 'main', url: 'https://github.com/shikhar-mutta/Scientific-Calculator-with-DevOps.git'
                     } catch (Exception e) {
-                        env.FAILURE_STAGE = 'Checkout'
-                        env.FAILURE_REASON = e.getMessage()
+                        currentBuild.description = 'Failed Stage: Checkout\nReason: ' + e.getMessage()
                         throw e
                     }
                 }
@@ -34,8 +31,7 @@ pipeline {
                     try {
                         sh 'mvn clean compile'
                     } catch (Exception e) {
-                        env.FAILURE_STAGE = 'Build'
-                        env.FAILURE_REASON = 'Maven compilation failed. Check for syntax errors in Java code.'
+                        currentBuild.description = 'Failed Stage: Build\nReason: Maven compilation failed. Check for syntax errors in Java code.'
                         throw e
                     }
                 }
@@ -48,8 +44,7 @@ pipeline {
                     try {
                         sh 'mvn test'
                     } catch (Exception e) {
-                        env.FAILURE_STAGE = 'Test'
-                        env.FAILURE_REASON = 'One or more JUnit tests failed. Check test results for details.'
+                        currentBuild.description = 'Failed Stage: Test\nReason: One or more JUnit tests failed. Check test results for details.'
                         throw e
                     }
                 }
@@ -62,8 +57,7 @@ pipeline {
                     try {
                         sh 'mvn package'
                     } catch (Exception e) {
-                        env.FAILURE_STAGE = 'Package'
-                        env.FAILURE_REASON = 'Failed to package the JAR file.'
+                        currentBuild.description = 'Failed Stage: Package\nReason: Failed to package the JAR file.'
                         throw e
                     }
                 }
@@ -76,8 +70,7 @@ pipeline {
                     try {
                         sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                     } catch (Exception e) {
-                        env.FAILURE_STAGE = 'Docker Build'
-                        env.FAILURE_REASON = 'Docker image build failed. Check Dockerfile for errors.'
+                        currentBuild.description = 'Failed Stage: Docker Build\nReason: Docker image build failed. Check Dockerfile for errors.'
                         throw e
                     }
                 }
@@ -98,8 +91,7 @@ pipeline {
                             sh 'docker logout'
                         }
                     } catch (Exception e) {
-                        env.FAILURE_STAGE = 'Docker Push'
-                        env.FAILURE_REASON = 'Failed to push image to Docker Hub. Check credentials and permissions.'
+                        currentBuild.description = 'Failed Stage: Docker Push\nReason: Failed to push image to Docker Hub. Check credentials and permissions.'
                         throw e
                     }
                 }
@@ -112,8 +104,7 @@ pipeline {
                     try {
                         sh 'ansible-playbook -i inventory.ini deploy.yml'
                     } catch (Exception e) {
-                        env.FAILURE_STAGE = 'Deploy - Ansible'
-                        env.FAILURE_REASON = 'Ansible deployment failed. Check deploy.yml and container status.'
+                        currentBuild.description = 'Failed Stage: Deploy\nReason: Ansible deployment failed. Check deploy.yml and container status.'
                         throw e
                     }
                 }
@@ -131,11 +122,10 @@ pipeline {
         failure {
             echo 'Pipeline failed. Check the logs above for errors.'
             script {
-                def stage = env.FAILURE_STAGE ?: 'SCM Checkout (pre-pipeline)'
-                def reason = env.FAILURE_REASON ?: 'Failed to fetch code from GitHub. The repository may be unreachable or GitHub may be down.'
+                def info = currentBuild.description ?: 'Failed Stage: SCM Checkout (pre-pipeline)\nReason: Failed to fetch code from GitHub. The repository may be unreachable or GitHub may be down.'
                 mail to: 'shikharmutta67@gmail.com',
                      subject: "FAILURE: Scientific Calculator Pipeline - Build #${env.BUILD_NUMBER}",
-                     body: "The pipeline has failed.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\n\nFailed Stage: ${stage}\nReason: ${reason}\n\nConsole Output: ${env.BUILD_URL}console"
+                     body: "The pipeline has failed.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\n\n${info}\n\nConsole Output: ${env.BUILD_URL}console"
             }
         }
     }
