@@ -1,0 +1,18 @@
+---
+- name: Deploy Scientific Calculator Container
+  hosts: local
+
+  tasks:
+    - name: Pull the Docker image
+      command: docker pull shikhar68/scientific-calculator:latest
+
+    - name: Stop existing container (if any)
+      command: docker rm -f scientific-calculator
+      ignore_errors: yes
+
+    - name: Run the Scientific Calculator container
+      command: >
+        docker run -dit
+        --name scientific-calculator
+        --restart always
+        shikhar68/scientific-calculator:latest

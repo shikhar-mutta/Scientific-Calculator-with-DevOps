@@ -15,7 +15,7 @@ public class ScientificCalculator {
 
     // ───────────────────────── Core Operations ─────────────────────────
 
-    /**
+    /**Monitoring using ELK Stack (Proper Version)
      * Computes the square root of a non-negative number.
      *
      * @param x the input value (must be >= 0)
