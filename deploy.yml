@@ -1,18 +1,40 @@
 ---
 - name: Deploy Scientific Calculator Container
   hosts: local
+  become: yes
+
+  vars:
+    docker_image: shikhar68/scientific-calculator
+    docker_tag: latest
+    container_name: scientific-calculator
 
   tasks:
-    - name: Pull the Docker image
-      command: docker pull shikhar68/scientific-calculator:latest
+    - name: Pull the latest Docker image
+      docker_image:
+        name: "{{ docker_image }}"
+        tag: "{{ docker_tag }}"
+        source: pull
+        force_source: yes
 
-    - name: Stop existing container (if any)
-      command: docker rm -f scientific-calculator
-      ignore_errors: yes
+    - name: Stop and remove existing container (if any)
+      docker_container:
+        name: "{{ container_name }}"
+        state: absent
 
     - name: Run the Scientific Calculator container
-      command: >
-        docker run -dit
-        --name scientific-calculator
-        --restart always
-        shikhar68/scientific-calculator:latest
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ docker_image }}:{{ docker_tag }}"
+        state: started
+        interactive: yes
+        tty: yes
+        detach: yes
+        restart_policy: always
+
+    - name: Verify container is running
+      command: docker ps --filter "name={{ container_name }}" --format "{{ '{{' }}.Status{{ '}}' }}"
+      register: container_status
+
+    - name: Print container status
+      debug:
+        msg: "Container '{{ container_name }}' status: {{ container_status.stdout }}"
