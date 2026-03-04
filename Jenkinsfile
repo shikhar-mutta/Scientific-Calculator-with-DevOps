@@ -6,8 +6,9 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'shikhar68/scientific-calculator'
-        DOCKER_TAG   = 'latest'
+        DOCKER_IMAGE    = 'shikhar68/scientific-calculator'
+        DOCKER_TAG      = 'latest'
+        DOCKER_BUILDKIT = '0'   // Disable BuildKit — avoids hang in Jenkins+Docker Desktop
     }
 
     stages {
@@ -65,9 +66,15 @@ pipeline {
         }
 
         stage('Docker Build') {
+            options {
+                timeout(time: 10, unit: 'MINUTES')  // Fail fast instead of hanging forever
+            }
             steps {
                 script {
                     try {
+                        // Pre-pull base images to warm the cache
+                        sh 'docker pull maven:3.9-eclipse-temurin-17 || true'
+                        sh 'docker pull eclipse-temurin:17-jre || true'
                         sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                     } catch (Exception e) {
                         currentBuild.description = 'Failed Stage: Docker Build\nReason: Docker image build failed. Check Dockerfile for errors.'
