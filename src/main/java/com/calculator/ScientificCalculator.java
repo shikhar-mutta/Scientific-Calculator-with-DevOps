@@ -22,9 +22,9 @@ public class ScientificCalculator {
     /**
      * Returns the sum of two numbers.
      */
-    public static double add(double a, double b) {
-        return a + b;
-    }
+    // public static double add(double a, double b) {
+    //     return a + b;
+    // }
 
     /**
      * Returns the difference of two numbers (a - b).
@@ -128,7 +128,7 @@ public class ScientificCalculator {
 
         while (running) {
             System.out.println("\n--- Menu ---");
-            System.out.println("1. Add\n2. Subtract\n3. Multiply\n4. Divide");
+            System.out.println("2. Subtract\n3. Multiply\n4. Divide");
             System.out.println("5. Power\n6. Square Root\n7. Logarithm\n8. Factorial");
             System.out.println("9. Exit");
             System.out.print("Choose an option (1-9): ");
@@ -143,13 +143,13 @@ public class ScientificCalculator {
 
             try {
                 switch (choice) {
-                    case 1:
-                        System.out.print("Enter first number: ");
-                        double a1 = Double.parseDouble(scanner.nextLine().trim());
-                        System.out.print("Enter second number: ");
-                        double b1 = Double.parseDouble(scanner.nextLine().trim());
-                        System.out.printf("%.4f + %.4f = %.4f%n", a1, b1, add(a1, b1));
-                        break;
+                    // case 1:
+                    //     System.out.print("Enter first number: ");
+                    //     double a1 = Double.parseDouble(scanner.nextLine().trim());
+                    //     System.out.print("Enter second number: ");
+                    //     double b1 = Double.parseDouble(scanner.nextLine().trim());
+                    //     System.out.printf("%.4f + %.4f = %.4f%n", a1, b1, add(a1, b1));
+                    //     break;
 
                     case 2:
                         System.out.print("Enter first number: ");
