@@ -8,7 +8,7 @@ pipeline {
     environment {
         DOCKER_IMAGE    = 'shikhar68/scientific-calculator'
         DOCKER_TAG      = 'latest'
-        DOCKER_BUILDKIT = '0'   // Disable BuildKit — avoids hang in Jenkins+Docker Desktop
+        DOCKER_BUILDKIT = '0'   // Disable BuildKit — prevents silent hang in Jenkins
     }
 
     stages {
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'mvn clean compile'
+                        sh 'mvn clean compile -q'
                     } catch (Exception e) {
                         currentBuild.description = 'Failed Stage: Build\nReason: Maven compilation failed. Check for syntax errors in Java code.'
                         throw e
@@ -56,7 +56,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'mvn package'
+                        sh 'mvn package -DskipTests -q'
                     } catch (Exception e) {
                         currentBuild.description = 'Failed Stage: Package\nReason: Failed to package the JAR file.'
                         throw e
@@ -67,17 +67,16 @@ pipeline {
 
         stage('Docker Build') {
             options {
-                timeout(time: 10, unit: 'MINUTES')  // Fail fast instead of hanging forever
+                timeout(time: 15, unit: 'MINUTES')  // Kill the stage if it hangs
             }
             steps {
                 script {
                     try {
-                        // Pre-pull base images to warm the cache
-                        sh 'docker pull maven:3.9-eclipse-temurin-17 || true'
-                        sh 'docker pull eclipse-temurin:17-jre || true'
+                        // Verify Docker daemon is reachable before building
+                        sh 'docker info > /dev/null 2>&1'
                         sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                     } catch (Exception e) {
-                        currentBuild.description = 'Failed Stage: Docker Build\nReason: Docker image build failed. Check Dockerfile for errors.'
+                        currentBuild.description = 'Failed Stage: Docker Build\nReason: Docker image build failed. Ensure Docker daemon is running and Jenkins has socket access.'
                         throw e
                     }
                 }
@@ -93,7 +92,7 @@ pipeline {
                             usernameVariable: 'DOCKER_USER',
                             passwordVariable: 'DOCKER_PASS'
                         )]) {
-                            sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                            sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
                             sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
                             sh 'docker logout'
                         }
@@ -134,6 +133,10 @@ pipeline {
                      subject: "FAILURE: Scientific Calculator Pipeline - Build #${env.BUILD_NUMBER}",
                      body: "The pipeline has failed.\n\nJob: ${env.JOB_NAME}\nBuild: #${env.BUILD_NUMBER}\n\n${info}\n\nConsole Output: ${env.BUILD_URL}console"
             }
+        }
+        always {
+            // Clean up dangling images to save disk space
+            sh 'docker image prune -f || true'
         }
     }
 }
