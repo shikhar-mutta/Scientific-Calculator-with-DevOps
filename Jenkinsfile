@@ -6,9 +6,8 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE    = 'shikhar68/scientific-calculator'
-        DOCKER_TAG      = 'latest'
-        DOCKER_BUILDKIT = '1'
+        DOCKER_IMAGE = 'shikhar68/scientific-calculator'
+        DOCKER_TAG   = 'latest'
     }
 
     stages {
