@@ -11,9 +11,26 @@ RUN mvn dependency:go-offline -q
 COPY src ./src
 RUN mvn clean package -DskipTests -o -q
 
-# ── Stage 2: Minimal runtime (Alpine-native JRE) ─────────────────────
-# eclipse-temurin:17-jre-alpine uses musl-compatible binaries — no jlink needed
-FROM eclipse-temurin:17-jre-alpine
+# ── Stage 2: Custom minimal JRE via jlink (musl/Alpine-compatible) ────
+# IMPORTANT: Must use the Alpine variant so jlink output is musl-compatible
+FROM eclipse-temurin:17-jdk-alpine AS jre-builder
+
+RUN $JAVA_HOME/bin/jlink \
+    --add-modules java.base,java.logging \
+    --strip-debug \
+    --no-man-pages \
+    --no-header-files \
+    --compress=2 \
+    --output /custom-jre
+
+# ── Stage 3: Bare Alpine + custom musl-compatible JRE ────────────────
+FROM alpine:3.19
+
+ENV JAVA_HOME=/opt/jre
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# Copy only the tiny custom JRE (musl-native, no glibc needed)
+COPY --from=jre-builder /custom-jre $JAVA_HOME
 
 # Create non-root user (Alpine syntax)
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
