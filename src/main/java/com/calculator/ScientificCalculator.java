@@ -128,7 +128,7 @@ public class ScientificCalculator {
 
         while (running) {
             System.out.println("\n--- Menu ---");
-            System.out.println("2. Subtract\n3. Multiply\n4. Divide");
+            System.out.println("1. Add\n2. Subtract\n3. Multiply\n4. Divide");
             System.out.println("5. Power\n6. Square Root\n7. Logarithm\n8. Factorial");
             System.out.println("9. Exit");
             System.out.print("Choose an option (1-9): ");
