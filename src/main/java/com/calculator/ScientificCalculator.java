@@ -121,6 +121,7 @@ public class ScientificCalculator {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
+        scanner.nextLine().trim().charAt(0);
         System.out.println("=============================================");
         System.out.println("       SCIENTIFIC CALCULATOR");
         System.out.println("       SPE Mini Project");
