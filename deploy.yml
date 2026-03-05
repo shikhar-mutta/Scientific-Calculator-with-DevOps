@@ -39,9 +39,9 @@
         msg: "NEW CONTAINER ID => {{ new_container.stdout }}"
 
     - name: "[5/6] Verify new container is running"
-      command: "docker ps --filter name={{ container_name }} --format 'ID: {% raw %}{{.ID}}{% endraw %} | Status: {% raw %}{{.Status}}{% endraw %}'"
+      command: "docker ps --filter name={{ container_name }} --format {% raw %}{{.ID}}{% endraw %}"
       register: new_status
 
-    - name: "[6/6] Print final update result"
+    - name: "[6/6] New Container ID"
       debug:
-        msg: "UPDATE COMPLETE => {{ new_status.stdout }}"
+        msg: "{{ new_status.stdout }}"
