@@ -8,24 +8,40 @@
     container_name: scientific-calculator
 
   tasks:
-    - name: Pull the latest Docker image
-      command: "docker pull {{ docker_image }}:{{ docker_tag }}"
 
-    - name: Stop and remove existing container (if any)
+    - name: "[1/6] Show old container status (before update)"
+      command: "docker ps --filter name={{ container_name }} --format 'ID: {% raw %}{{.ID}}{% endraw %} | Image: {% raw %}{{.Image}}{% endraw %} | Status: {% raw %}{{.Status}}{% endraw %}'"
+      register: old_status
+      ignore_errors: yes
+
+    - name: "[1/6] Print old container info"
+      debug:
+        msg: "OLD CONTAINER => {{ old_status.stdout if old_status.stdout else 'No container running' }}"
+
+    - name: "[2/6] Pull the latest Docker image from DockerHub"
+      command: "docker pull {{ docker_image }}:{{ docker_tag }}"
+      register: pull_output
+
+    - name: "[2/6] Print pull result"
+      debug:
+        msg: "{{ pull_output.stdout_lines }}"
+
+    - name: "[3/6] Stop and remove existing container (if any)"
       command: "docker rm -f {{ container_name }}"
       ignore_errors: yes
 
-    - name: Run the Scientific Calculator container
-      command: >
-        docker run -dit
-        --name {{ container_name }}
-        --restart always
-        {{ docker_image }}:{{ docker_tag }}
+    - name: "[4/6] Run updated Scientific Calculator container"
+      command: "docker run -d --name {{ container_name }} --restart unless-stopped -i {{ docker_image }}:{{ docker_tag }}"
+      register: new_container
 
-    - name: Verify container is running
-      command: docker ps --filter "name={{ container_name }}" --format "{{'{{'}}.Status{{'}}'}}"
-      register: container_status
-
-    - name: Print container status
+    - name: "[4/6] Print new container ID"
       debug:
-        msg: "Container '{{ container_name }}' status: {{ container_status.stdout }}"
+        msg: "NEW CONTAINER ID => {{ new_container.stdout }}"
+
+    - name: "[5/6] Verify new container is running"
+      command: "docker ps --filter name={{ container_name }} --format 'ID: {% raw %}{{.ID}}{% endraw %} | Status: {% raw %}{{.Status}}{% endraw %}'"
+      register: new_status
+
+    - name: "[6/6] Print final update result"
+      debug:
+        msg: "UPDATE COMPLETE => {{ new_status.stdout }}"
