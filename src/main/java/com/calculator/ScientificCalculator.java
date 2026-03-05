@@ -143,13 +143,13 @@ public class ScientificCalculator {
 
             try {
                 switch (choice) {
-                    // case 1:
-                    //     System.out.print("Enter first number: ");
-                    //     double a1 = Double.parseDouble(scanner.nextLine().trim());
-                    //     System.out.print("Enter second number: ");
-                    //     double b1 = Double.parseDouble(scanner.nextLine().trim());
-                    //     System.out.printf("%.4f + %.4f = %.4f%n", a1, b1, add(a1, b1));
-                    //     break;
+                    case 1:
+                        System.out.print("Enter first number: ");
+                        double a1 = Double.parseDouble(scanner.nextLine().trim());
+                        System.out.print("Enter second number: ");
+                        double b1 = Double.parseDouble(scanner.nextLine().trim());
+                        System.out.printf("%.4f + %.4f = %.4f%n", a1, b1, add(a1, b1));
+                        break;
 
                     case 2:
                         System.out.print("Enter first number: ");
