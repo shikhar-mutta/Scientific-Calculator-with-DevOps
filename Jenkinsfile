@@ -25,6 +25,8 @@ pipeline {
                 }
             }
         }
+        // git clone repository
+        // git checkout main
 
         stage('Build') {
             steps {
@@ -38,6 +40,7 @@ pipeline {
                 }
             }
         }
+        // mvn clean compile
 
         stage('Test') {
             steps {
@@ -51,6 +54,7 @@ pipeline {
                 }
             }
         }
+        // mvn test
 
         stage('Package') {
             steps {
@@ -64,6 +68,7 @@ pipeline {
                 }
             }
         }
+        // mvn package
 
         stage('Docker Build') {
             options {
@@ -82,6 +87,7 @@ pipeline {
                 }
             }
         }
+        // docker build -t shikhar68/scientific-calculator:latest .
 
         stage('Docker Push') {
             steps {
@@ -103,6 +109,8 @@ pipeline {
                 }
             }
         }
+        // docker push shikhar68/scientific-calculator:latest
+        // docker logout
 
         stage('Deploy - Ansible') {
             steps {
@@ -116,6 +124,7 @@ pipeline {
                 }
             }
         }
+        // ansible-playbook -i inventory.ini deploy.yml
     }
 
     post {
@@ -138,5 +147,6 @@ pipeline {
             // Clean up dangling images to save disk space
             sh 'docker image prune -f || true'
         }
+        // docker image prune -f
     }
 }
