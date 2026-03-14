@@ -121,6 +121,7 @@ public class ScientificCalculator {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
+        System.out.println("Press Enter to start Program:");
         scanner.nextLine();
         System.out.println("=============================================");
         System.out.println("       SCIENTIFIC CALCULATOR");
