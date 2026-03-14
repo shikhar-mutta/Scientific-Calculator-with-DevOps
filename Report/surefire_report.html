@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Surefire Test Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Consolas', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 24px 32px;
+            width: 960px;
+        }
+
+        .header {
+            background: #0d7a3f;
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .header .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .summary {
+            background: #252526;
+            padding: 12px 20px;
+            display: flex;
+            gap: 32px;
+            border-bottom: 1px solid #333;
+            font-size: 13px;
+        }
+
+        .summary .stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .summary .stat .val {
+            font-weight: 700;
+            color: #4ec9b0;
+            font-size: 15px;
+        }
+
+        .summary .stat.fail .val {
+            color: #f44747;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1e1e1e;
+            font-size: 12.5px;
+        }
+
+        thead th {
+            background: #2d2d2d;
+            text-align: left;
+            padding: 8px 12px;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #444;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        tbody tr:hover {
+            background: #2a2d2e;
+        }
+
+        tbody td {
+            padding: 6px 12px;
+        }
+
+        td.num {
+            text-align: center;
+            color: #888;
+            width: 36px;
+        }
+
+        td.name {
+            color: #dcdcaa;
+        }
+
+        td.name .method {
+            color: #dcdcaa;
+        }
+
+        td.name .class {
+            color: #666;
+            font-size: 11px;
+        }
+
+        td.time {
+            text-align: right;
+            color: #9cdcfe;
+            width: 70px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        td.status {
+            text-align: center;
+            width: 64px;
+        }
+
+        .pass {
+            color: #4ec9b0;
+            font-weight: 700;
+        }
+
+        .group-header {
+            background: #252526;
+            font-weight: 700;
+            color: #c586c0;
+            font-size: 12px;
+        }
+
+        .group-header td {
+            padding: 7px 12px;
+        }
+
+        .footer {
+            background: #252526;
+            padding: 10px 20px;
+            border-radius: 0 0 6px 6px;
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #333;
+        }
+
+        .container {
+            border: 1px solid #333;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Maven Surefire Report — ScientificCalculatorTest</h1>
+            <span class="badge">✓ BUILD SUCCESS</span>
+        </div>
+        <div class="summary">
+            <div class="stat"><span>Tests:</span><span class="val">37</span></div>
+            <div class="stat"><span>Failures:</span><span class="val">0</span></div>
+            <div class="stat"><span>Errors:</span><span class="val">0</span></div>
+            <div class="stat"><span>Skipped:</span><span class="val">0</span></div>
+            <div class="stat"><span>Time:</span><span class="val">0.114s</span></div>
+            <div class="stat"><span>JUnit:</span><span class="val">5.9.3</span></div>
+            <div class="stat"><span>Java:</span><span class="val">21.0.10</span></div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Test Method</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Addition -->
+                <tr class="group-header">
+                    <td></td>
+                    <td colspan="3">▸ Addition (4 tests)</td>
+                </tr>
+                <tr>
+                    <td class="num">1</td>
+                    <td class="name">testAddPositive</td>
+                    <td class="time">0.000s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">2</td>
+                    <td class="name">testAddNegative</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">3</td>
+                    <td class="name">testAddZero</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">4</td>
+                    <td class="name">testAddDecimals</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+
+                <!-- Subtraction -->
+                <tr class="group-header">
+                    <td></td>
+                    <td colspan="3">▸ Subtraction (4 tests)</td>
+                </tr>
+                <tr>
+                    <td class="num">5</td>
+                    <td class="name">testSubtractPositive</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">6</td>
+                    <td class="name">testSubtractNegativeResult</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">7</td>
+                    <td class="name">testSubtractZero</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">8</td>
+                    <td class="name">testSubtractSameNumbers</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+
+                <!-- Multiplication -->
+                <tr class="group-header">
+                    <td></td>
+                    <td colspan="3">▸ Multiplication (4 tests)</td>
+                </tr>
+                <tr>
+                    <td class="num">9</td>
+                    <td class="name">testMultiplyPositive</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">10</td>
+                    <td class="name">testMultiplyByZero</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">11</td>
+                    <td class="name">testMultiplyNegatives</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">12</td>
+                    <td class="name">testMultiplyMixed</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+
+                <!-- Division -->
+                <tr class="group-header">
+                    <td></td>
+                    <td colspan="3">▸ Division (4 tests)</td>
+                </tr>
+                <tr>
+                    <td class="num">13</td>
+                    <td class="name">testDividePositive</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">14</td>
+                    <td class="name">testDivideNegative</td>
+                    <td class="time">0.043s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">15</td>
+                    <td class="name">testDivideZeroNumerator</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">16</td>
+                    <td class="name">testDivideByZeroThrows</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+
+                <!-- Power -->
+                <tr class="group-header">
+                    <td></td>
+                    <td colspan="3">▸ Power (5 tests)</td>
+                </tr>
+                <tr>
+                    <td class="num">17</td>
+                    <td class="name">testPowerPositive</td>
+                    <td class="time">0.000s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">18</td>
+                    <td class="name">testPowerNegativeExponent</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">19</td>
+                    <td class="name">testPowerZeroExponent</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">20</td>
+                    <td class="name">testPowerFractionalExponent</td>
+                    <td class="time">0.000s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">21</td>
+                    <td class="name">testPowerBaseZero</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+
+                <!-- Square Root -->
+                <tr class="group-header">
+                    <td></td>
+                    <td colspan="3">▸ Square Root (4 tests)</td>
+                </tr>
+                <tr>
+                    <td class="num">22</td>
+                    <td class="name">testSquareRootPositive</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">23</td>
+                    <td class="name">testSquareRootZero</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">24</td>
+                    <td class="name">testSquareRootDecimal</td>
+                    <td class="time">0.000s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">25</td>
+                    <td class="name">testSquareRootNegativeThrows</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+
+                <!-- Natural Log -->
+                <tr class="group-header">
+                    <td></td>
+                    <td colspan="3">▸ Natural Log (5 tests)</td>
+                </tr>
+                <tr>
+                    <td class="num">26</td>
+                    <td class="name">testNaturalLogOne</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">27</td>
+                    <td class="name">testNaturalLogE</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">28</td>
+                    <td class="name">testNaturalLogPositive</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">29</td>
+                    <td class="name">testNaturalLogZeroThrows</td>
+                    <td class="time">0.002s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">30</td>
+                    <td class="name">testNaturalLogNegativeThrows</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+
+                <!-- Factorial -->
+                <tr class="group-header">
+                    <td></td>
+                    <td colspan="3">▸ Factorial (7 tests)</td>
+                </tr>
+                <tr>
+                    <td class="num">31</td>
+                    <td class="name">testFactorialZero</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">32</td>
+                    <td class="name">testFactorialOne</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">33</td>
+                    <td class="name">testFactorialFive</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">34</td>
+                    <td class="name">testFactorialTen</td>
+                    <td class="time">0.000s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">35</td>
+                    <td class="name">testFactorialTwenty</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">36</td>
+                    <td class="name">testFactorialNegativeThrows</td>
+                    <td class="time">0.002s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+                <tr>
+                    <td class="num">37</td>
+                    <td class="name">testFactorialTooLargeThrows</td>
+                    <td class="time">0.001s</td>
+                    <td class="status pass">✓ PASS</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="footer">
+            <span>com.calculator.ScientificCalculatorTest</span>
+            <span>maven-surefire-plugin:3.1.2 · JUnit Platform 1.9.3 · OpenJDK 21.0.10</span>
+        </div>
+    </div>
+</body>
+
+</html>
