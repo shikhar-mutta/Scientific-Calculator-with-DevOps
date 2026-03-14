@@ -3,12 +3,9 @@ package com.calculator;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Unit tests for the ScientificCalculator class.
- */
 public class ScientificCalculatorTest {
 
-    // ─────────────────── Addition Tests ──────────────────────
+    // Addition Tests
 
     @Test
     public void testAddPositive() {
@@ -30,7 +27,7 @@ public class ScientificCalculatorTest {
         assertEquals(3.3, ScientificCalculator.add(1.1, 2.2), 1e-9);
     }
 
-    // ─────────────────── Subtraction Tests ───────────────────
+    // Subtraction Tests
 
     @Test
     public void testSubtractPositive() {
@@ -52,7 +49,7 @@ public class ScientificCalculatorTest {
         assertEquals(0.0, ScientificCalculator.subtract(7, 7), 1e-9);
     }
 
-    // ─────────────────── Multiplication Tests ────────────────
+    // Multiplication Tests
 
     @Test
     public void testMultiplyPositive() {
@@ -74,7 +71,7 @@ public class ScientificCalculatorTest {
         assertEquals(-10.0, ScientificCalculator.multiply(2, -5), 1e-9);
     }
 
-    // ─────────────────── Division Tests ──────────────────────
+    // Division Tests
 
     @Test
     public void testDividePositive() {
@@ -96,7 +93,7 @@ public class ScientificCalculatorTest {
         assertThrows(IllegalArgumentException.class, () -> ScientificCalculator.divide(5, 0));
     }
 
-    // ─────────────────── Power Function Tests ────────────────
+    // Power Function Tests
 
     @Test
     public void testPowerPositive() {
@@ -123,7 +120,7 @@ public class ScientificCalculatorTest {
         assertEquals(0.0, ScientificCalculator.power(0, 5), 1e-9);
     }
 
-    // ─────────────────── Square Root Tests ───────────────────
+    // Square Root Tests
 
     @Test
     public void testSquareRootPositive() {
@@ -145,7 +142,7 @@ public class ScientificCalculatorTest {
         assertThrows(IllegalArgumentException.class, () -> ScientificCalculator.squareRoot(-4));
     }
 
-    // ─────────────────── Natural Log Tests ───────────────────
+    // Natural Log Tests
 
     @Test
     public void testNaturalLogOne() {
@@ -172,7 +169,7 @@ public class ScientificCalculatorTest {
         assertThrows(IllegalArgumentException.class, () -> ScientificCalculator.naturalLog(-5));
     }
 
-    // ─────────────────── Factorial Tests ─────────────────────
+    // Factorial Tests
 
     @Test
     public void testFactorialZero() {

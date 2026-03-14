@@ -2,49 +2,21 @@ package com.calculator;
 
 import java.util.Scanner;
 
-/**
- * Scientific Calculator - SPE Mini Project
- *
- * A menu-driven scientific calculator supporting:
- * 1. Add - a + b
- * 2. Subtract - a - b
- * 3. Multiply - a * b
- * 4. Divide - a / b
- * 5. Power - x^b
- * 6. Square Root - √x
- * 7. Logarithm - ln(x)
- * 8. Factorial - x!
- */
+
 public class ScientificCalculator {
 
-    // ───────────────────── Arithmetic Operations ─────────────────────
-
-    /**
-     * Returns the sum of two numbers.
-     */
     public static double add(double a, double b) {
         return a + b;
     }
 
-    /**
-     * Returns the difference of two numbers (a - b).
-     */
     public static double subtract(double a, double b) {
         return a - b;
     }
 
-    /**
-     * Returns the product of two numbers.
-     */
     public static double multiply(double a, double b) {
         return a * b;
     }
 
-    /**
-     * Returns the quotient of two numbers (a / b).
-     *
-     * @throws IllegalArgumentException if b is zero
-     */
     public static double divide(double a, double b) {
         if (b == 0) {
             throw new IllegalArgumentException("Cannot divide by zero.");
@@ -52,26 +24,10 @@ public class ScientificCalculator {
         return a / b;
     }
 
-    // ───────────────────── Scientific Operations ─────────────────────
-
-    /**
-     * Computes x raised to the power b.
-     *
-     * @param x the base
-     * @param b the exponent
-     * @return x^b
-     */
     public static double power(double x, double b) {
         return Math.pow(x, b);
     }
 
-    /**
-     * Computes the square root of a non-negative number.
-     *
-     * @param x the input value (must be >= 0)
-     * @return √x
-     * @throws IllegalArgumentException if x < 0
-     */
     public static double squareRoot(double x) {
         if (x < 0) {
             throw new IllegalArgumentException("Cannot compute square root of a negative number.");
@@ -79,13 +35,6 @@ public class ScientificCalculator {
         return Math.sqrt(x);
     }
 
-    /**
-     * Computes the natural logarithm (base e) of a positive number.
-     *
-     * @param x the input value (must be > 0)
-     * @return ln(x)
-     * @throws IllegalArgumentException if x <= 0
-     */
     public static double naturalLog(double x) {
         if (x <= 0) {
             throw new IllegalArgumentException("Natural logarithm is not defined for zero or negative numbers.");
@@ -93,14 +42,6 @@ public class ScientificCalculator {
         return Math.log(x);
     }
 
-    /**
-     * Computes the factorial of a non-negative integer.
-     * Uses long to support values up to 20!
-     *
-     * @param n the input value (must be >= 0)
-     * @return n!
-     * @throws IllegalArgumentException if n < 0 or n > 20
-     */
     public static long factorial(int n) {
         if (n < 0) {
             throw new IllegalArgumentException("Factorial is not defined for negative numbers.");
@@ -114,8 +55,6 @@ public class ScientificCalculator {
         }
         return result;
     }
-
-    // ──────────────────────── Menu-Driven Main ─────────────────────────
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
